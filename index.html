@@ -13,11 +13,36 @@
     </section>
     <section hidden id="user">
       <h2>Hello <span class="username"></span>!</h2>
-      <form id="fragmentForm">
-        <h3>Input Your Text Fragment</h3>
-        <input type="text" id="fragment" name="fragment" value="Text Fragment"><br>
-        <input type="submit" value="Submit">
-      </form> 
-    </section>
-  </body>
+      <div>
+        <label for="selectBox">Select Fragment Type:</label>
+        <select id="selectBox">
+            <option value="text/plain">Text</option>
+            <option value="text/markdown">Markdown</option>
+            <option value="text/html">HTML</option>
+            <option value="application/json">JSON</option>
+        </select>
+        <form id="fragmentForm">
+          <label for="fragmentForm">Input Your Text Fragment</label>
+          <input type="text" id="fragment" name="fragment" value="Text Fragment"><br>
+          <input type="submit" value="Submit" style="margin-top:8px">
+        </form> 
+      </div>
+      <div>
+        <button id="getAllFragments" style="margin-top:5px">Get Fragments</button>
+        <table id="fragmentsTable" style="display:none">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Owner ID</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Type</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      </section>
+      </body>
 </html>

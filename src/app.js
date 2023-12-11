@@ -1,5 +1,5 @@
 import {Auth, getUser} from './auth.js';
-import { getUserFragments, postUserFragment } from './api';
+import { getUserFragments, getFragmentData, postUserFragment, updateUserFragment, deleteUserFragment } from './api';
 
 async function init() {
   // Get our UI elements
@@ -9,6 +9,8 @@ async function init() {
   const fragmentForm = document.querySelector("#fragmentForm");
   const getAllFragments = document.querySelector("#getAllFragments");
   const fragmentsTable = document.querySelector("#fragmentsTable");
+  const fragmentDataForm = document.querySelector("#fragmentDataForm");
+  const newFragment = document.querySelector("#newFragment");
   let data;
 
   // Wire up event handlers to deal with login and logout.
@@ -83,10 +85,56 @@ async function init() {
       console.log(
         `Fragment Value: ${fragmentValue}, Fragment Type: ${fragmentType}`
       );
-      await postUserFragment(user, fragment, fragmentType);
+      if (fragmentType.includes("image")) {
+        console.log("image is selected");
+        const fragmentImage = document.getElementById("fragmentImage").files[0];
+        console.log(fragmentImage);
+        await postUserFragment(user, fragmentImage, fragmentType);
+      } else {
+        await postUserFragment(user, fragmentValue, fragmentType);
+      }
     });
   } catch (err) {
     console.error(`Error posting user fragment: ${err}`);
+  }
+
+  try {
+    fragmentDataForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const fragmentId = document.getElementById("fragmentId").value;
+      const operation = document.querySelector('input[name="operation"]:checked').value;
+      const ext = document.getElementById("conversionSelectBox").value;
+      document.body.innerHTML = '';
+
+      if (operation == "getData") {
+        const data = await getFragmentData(user, fragmentId);
+        console.log(data);
+        document.body.appendChild(data);
+
+      } else if (operation == "convertData") {
+        console.log('Inside convert fragment data');
+        console.log(ext);
+        const data = await getFragmentData(user, fragmentId, ext);
+
+        console.log(data);
+        document.body.appendChild(data);
+    
+      } else if (operation == "updateData") {
+        console.log("Inside Update Fragment Data");
+
+        const newFrag = document.getElementById('newFragment').value;
+
+        const data = await updateUserFragment(user, newFrag, fragmentId);
+        document.body.appendChild(data);
+      } else if (operation == "deleteData") {
+        console.log("Inside Delete Fragment Data");
+        const data = await deleteUserFragment(user, fragmentId);
+        document.body.appendChild(data);
+      }
+    });
+  } catch (err) {
+    console.error(err, 'error with fragment data');
   }
 }
 

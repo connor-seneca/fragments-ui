@@ -20,12 +20,20 @@
             <option value="text/markdown">Markdown</option>
             <option value="text/html">HTML</option>
             <option value="application/json">JSON</option>
+            <option value="image/png">PNG Image</option>
+            <option value="image/jpeg">JPEG Image</option>
+            <option value="image/webp">Webp Image</option>
+            <option value="image/gif">GIF Image</option>
         </select>
-        <form id="fragmentForm">
-          <label for="fragmentForm">Input Your Text Fragment</label>
+        <form id="fragmentForm" enctype="multipart/form-data">
+          <label for="fragment">Input Your Text Fragment</label>
           <input type="text" id="fragment" name="fragment" value="Text Fragment"><br>
+      
+          <label for="fragmentImage">Upload Image</label>
+          <input type="file" id="fragmentImage" name="fragmentImage"><br>
+      
           <input type="submit" value="Submit" style="margin-top:8px">
-        </form> 
+      </form>
       </div>
       <div>
         <button id="getAllFragments" style="margin-top:5px">Get Fragments</button>
@@ -43,6 +51,46 @@
           <tbody></tbody>
         </table>
       </div>
+      <div>
+        <br />
+        <hr>
+        <label for="conversionSelectBox">Select Conversion Type:</label>
+        <select id="conversionSelectBox">
+          <option value="txt">Text</option>
+          <option value="md">Markdown</option>
+          <option value="html">HTML</option>
+          <option value="json">JSON</option>
+          <option value="png">PNG Image</option>
+          <option value="jpeg">JPEG Image</option>
+          <option value="webp">Webp Image</option>
+          <option value="gif">GIF Image</option>
+        </select>
+        <form id="fragmentDataForm">
+          <br />
+          <label for="fragmentOperation" style="margin-bottom:-15px">Select Operation:</label><br>
+          
+          <input type="radio" id="getData" name="operation" value="getData" style="display: inline-block; margin-right: 5px;">
+          <label for="getData" style="display: inline-block;">Get Fragment Data</label><br>
+
+          <input type="radio" id="convertData" name="operation" value="convertData" style="display: inline-block; margin-right: 5px;">
+          <label for="convertData" style="display: inline-block;">Convert Fragment</label><br>
+          
+          <input type="radio" id="updateData" name="operation" value="updateData" style="display: inline-block; margin-right: 5px;">
+          <label for="updateData" style="display: inline-block;">Update Fragment</label><br>
+          
+          <input type="radio" id="deleteData" name="operation" value="deleteData" style="display: inline-block; margin-right: 5px;">
+          <label for="deleteData" style="display: inline-block;">Delete Fragment</label><br>
+      
+          <label for="fragmentId">Input Fragment ID</label>
+          <input type="text" id="fragmentId" name="fragmentId" value="Fragment ID"><br>
+
+          <label for="newFragment">Input Updated Fragment</label>
+          <input type="text" id="newFragment" name="newFragment" value="New Fragment Data"><br>
+
+          <input type="submit" value="Submit" style="margin-top: 8px;">
+        </form> 
+      </div>
+      
       </section>
       </body>
 </html>

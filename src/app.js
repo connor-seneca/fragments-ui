@@ -105,6 +105,7 @@ async function init() {
       const fragmentId = document.getElementById("fragmentId").value;
       const operation = document.querySelector('input[name="operation"]:checked').value;
       const ext = document.getElementById("conversionSelectBox").value;
+      const newFrag = document.getElementById('newFragment').value;
       document.body.innerHTML = '';
 
       if (operation == "getData") {
@@ -123,14 +124,11 @@ async function init() {
       } else if (operation == "updateData") {
         console.log("Inside Update Fragment Data");
 
-        const newFrag = document.getElementById('newFragment').value;
-
         const data = await updateUserFragment(user, newFrag, fragmentId);
         document.body.appendChild(data);
       } else if (operation == "deleteData") {
         console.log("Inside Delete Fragment Data");
-        const data = await deleteUserFragment(user, fragmentId);
-        document.body.appendChild(data);
+        await deleteUserFragment(user, fragmentId);
       }
     });
   } catch (err) {

@@ -46,12 +46,14 @@ export async function getFragmentData(user, id, ext = "") {
     }
     if (type.includes('text')) {
       const data = await res.text();
+      console.log(data);
       const text = document.createTextNode(data);
       return text;
     }
     if (type.includes('json')) {
       const data = await res.json();
-      const jData = JSON.stringify(data, null, 2);
+      console.log(data);
+      const jData = JSON.stringify(data);
       const text = document.createTextNode(jData);
       return text;
     }
@@ -106,8 +108,10 @@ export async function updateUserFragment(user, fragment, id) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
     const data = await res.json();
+    const jData = JSON.stringify(data);
+    const text = document.createTextNode(jData);
     console.log('Updated the fragment successfully', {data});
-    return data;
+    return text;
   } catch (err) {
     console.error('Unable to update the fragment', err);
   }
@@ -125,6 +129,7 @@ export async function deleteUserFragment(user, id) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
     const data = await res.json();
+    
     console.log('deleted fragment successfully');
     return data;
   } catch (err) {
